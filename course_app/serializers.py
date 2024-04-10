@@ -52,3 +52,8 @@ class CourseSerializer(serializers.ModelSerializer):
         user = self.context.get('request').user
 
         return user.is_authenticated and obj.students.filter(pk=user.pk).exists()
+
+class CourseListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
