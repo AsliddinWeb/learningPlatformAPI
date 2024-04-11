@@ -13,6 +13,7 @@ from .serializers import CourseSerializer, CourseListSerializer, AuthorSerialize
 
 
 class CourseListView(ListAPIView):
+    queryset = Course.objects.all()
     serializer_class = CourseListSerializer
     permission_classes = [AllowAny]
     filter_backends = [SearchFilter]
