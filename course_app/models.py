@@ -11,6 +11,9 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Avtorlar"
+
 class Category(models.Model):
     title = models.CharField(max_length=455)
     description = models.TextField()
@@ -18,6 +21,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = "Kategoriyalar"
 
 class Course(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -33,6 +39,9 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = "Kurslar"
+
 class Section(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='sections')
     title = models.CharField(max_length=455)
@@ -40,6 +49,9 @@ class Section(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = "Kurs bo'limlari"
 
 class Lesson(models.Model):
     # Course maydonini olib tashlaymiz, chunki biz Section orqali kursga murojaat qilamiz
@@ -52,6 +64,9 @@ class Lesson(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name_plural = "Bo'lim mavzulari"
+
 class LessonImage(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='images')
     title = models.CharField(max_length=455)
@@ -59,3 +74,6 @@ class LessonImage(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = "Mavzu rasmlari"

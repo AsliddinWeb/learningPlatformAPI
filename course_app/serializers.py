@@ -1,29 +1,31 @@
-from .models import Course, Author, Category
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from auth_app.serializers import UserSerializer
+from .models import Section, Lesson, LessonImage, Category, Course, Author
 
-
-from rest_framework import serializers
-from .models import Section, Lesson, LessonImage, Category
-
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(ModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
 
-class LessonImageSerializer(serializers.ModelSerializer):
+class AuthorSerializer(ModelSerializer):
+    class Meta:
+        model = Author
+        fields = "__all__"
+
+class LessonImageSerializer(ModelSerializer):
     class Meta:
         model = LessonImage
         fields = ['title', 'image']
 
-class LessonSerializer(serializers.ModelSerializer):
-    images = LessonImageSerializer(many=True, read_only=True)  # LessonImage'lar uchun
+class LessonSerializer(ModelSerializer):
+    images = LessonImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Lesson
         fields = ['id', 'title', 'video', 'description', 'material', 'images']
 
-class SectionSerializer(serializers.ModelSerializer):
+class SectionSerializer(ModelSerializer):
     lessons = LessonSerializer(many=True, read_only=True)
 
     class Meta:
@@ -32,22 +34,12 @@ class SectionSerializer(serializers.ModelSerializer):
 
 
 
-class AuthorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Author
-        fields = "__all__"
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = "__all__"
-
-class CourseSerializer(serializers.ModelSerializer):
+class CourseSerializer(ModelSerializer):
     author = AuthorSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
     students = UserSerializer(many=True, read_only=True)
-    sections = SectionSerializer(many=True, read_only=True)  # Kursga tegishli bo'limlar
-    is_user_enrolled = serializers.SerializerMethodField()
+    sections = SectionSerializer(many=True, read_only=True)
+    is_user_enrolled = SerializerMethodField()
 
     class Meta:
         model = Course
@@ -58,7 +50,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
         return user.is_authenticated and obj.students.filter(pk=user.pk).exists()
 
-class CourseListSerializer(serializers.ModelSerializer):
+class CourseListSerializer(ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'

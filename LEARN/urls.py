@@ -17,6 +17,12 @@ schema_view = get_schema_view(
    ),
 )
 
+# Admin UI Custom
+admin.site.site_title = "Learning Platform"
+admin.site.site_header = "Learning Platform"
+admin.site.index_title = "Dashboard"
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
