@@ -3,12 +3,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, filters
-from .models import Course, Author
+from .models import Course, Author, Category
 
-from django.db.models import Q
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
-from .serializers import CourseSerializer, CourseListSerializer, AuthorSerializer
+from .serializers import CourseSerializer, CourseListSerializer, AuthorSerializer, CategorySerializer
 
 class JoinCourseView(APIView):
     permission_classes = [IsAuthenticated]
@@ -62,5 +61,17 @@ class AuthorListView(ListAPIView):
 class AuthorDetailView(RetrieveAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'pk'
+
+
+class CategoryListView(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [AllowAny]
+
+class CategoryDetailView(RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
     permission_classes = [AllowAny]
     lookup_field = 'pk'

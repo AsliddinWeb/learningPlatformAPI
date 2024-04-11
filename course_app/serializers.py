@@ -4,7 +4,12 @@ from auth_app.serializers import UserSerializer
 
 
 from rest_framework import serializers
-from .models import Section, Lesson, LessonImage
+from .models import Section, Lesson, LessonImage, Category
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
 
 class LessonImageSerializer(serializers.ModelSerializer):
     class Meta:

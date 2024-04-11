@@ -37,6 +37,7 @@ class Section(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='sections')
     title = models.CharField(max_length=455)
 
+
     def __str__(self):
         return self.title
 
