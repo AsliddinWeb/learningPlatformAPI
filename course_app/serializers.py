@@ -30,7 +30,7 @@ class SectionSerializer(ModelSerializer):
 
     class Meta:
         model = Section
-        fields = ['id', 'title', 'lessons']
+        fields = ['id', 'title', 'lessons', 'duration']
 
 
 
