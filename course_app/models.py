@@ -54,10 +54,10 @@ class Section(models.Model):
         verbose_name_plural = "Kurs bo'limlari"
 
 class Lesson(models.Model):
-    # Course maydonini olib tashlaymiz, chunki biz Section orqali kursga murojaat qilamiz
     section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='lessons')
     title = models.CharField(max_length=455)
     video = models.TextField(null=True, blank=True)
+    duration = models.CharField(max_length=255, default="10 daqiqa")
     description = models.TextField()
     material = models.FileField(upload_to='files/', null=True, blank=True)
 
