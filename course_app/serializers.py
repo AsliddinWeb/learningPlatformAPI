@@ -23,14 +23,14 @@ class LessonSerializer(ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ['id', 'title', 'video', 'description', 'material', 'images']
+        fields = ['id', 'title', 'video', 'description', 'material', 'images', 'duration']
 
 class SectionSerializer(ModelSerializer):
     lessons = LessonSerializer(many=True, read_only=True)
 
     class Meta:
         model = Section
-        fields = ['id', 'title', 'lessons', 'duration']
+        fields = ['id', 'title', 'lessons']
 
 
 
