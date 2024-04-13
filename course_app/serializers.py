@@ -47,8 +47,19 @@ class CourseSerializer(ModelSerializer):
 
     def get_is_user_enrolled(self, obj):
         user = self.context.get('request').user
+        print("User:", user)
 
-        return user.is_authenticated and obj.students.filter(pk=user.pk).exists()
+        # Check if the user is authenticated
+        if not user.is_authenticated:
+            return False
+
+        student_pks = obj.students.values_list('pk', flat=True)
+
+        is_enrolled = user.pk in student_pks
+
+        print("Is enrolled:", is_enrolled)
+        return is_enrolled
+
 
 class CourseListSerializer(ModelSerializer):
     author = AuthorSerializer(read_only=True)
