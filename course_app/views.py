@@ -8,8 +8,9 @@ from rest_framework.filters import SearchFilter
 
 from django.shortcuts import get_object_or_404
 
-from .models import Course, Author, Category
-from .serializers import CourseSerializer, CourseListSerializer, AuthorSerializer, CategorySerializer
+from .models import Course, Author, Category, Lesson
+from .serializers import (CourseSerializer, CourseListSerializer,
+                          AuthorSerializer, CategorySerializer, LessonDetailSerializer)
 
 
 class CourseListView(ListAPIView):
@@ -72,5 +73,11 @@ class CategoryListView(ListAPIView):
 class CategoryDetailView(RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'pk'
+
+class LessonetailView(RetrieveAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonDetailSerializer
     permission_classes = [AllowAny]
     lookup_field = 'pk'

@@ -15,4 +15,7 @@ urlpatterns = [
     # Cateogiries
     path('categories/', views.CategoryListView.as_view(), name='category-list'),
     path('categories/<int:pk>/', views.CategoryDetailView.as_view(), name='category-detail'),
+
+    # Lesson
+    path('lesson/<int:pk>/', views.LessonetailView.as_view(), name='lesson-detail'),
 ]

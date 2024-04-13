@@ -56,3 +56,10 @@ class CourseListSerializer(ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+
+class LessonDetailSerializer(ModelSerializer):
+    images = LessonImageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Lesson
+        fields = "__all__"
